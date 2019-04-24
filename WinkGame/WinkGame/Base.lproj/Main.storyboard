@@ -93,6 +93,7 @@
                                 <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="createGame:" destination="UDm-RT-q14" eventType="touchUpInside" id="xfp-FV-cbW"/>
+                                    <segue destination="vJh-wj-Q3I" kind="show" identifier="startFromCreate" id="WkD-WY-brZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -110,6 +111,77 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sb9-Ps-AAl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1868.1159420289857" y="-116.57608695652175"/>
+        </scene>
+        <!--GameVC-->
+        <scene sceneID="Fqf-VC-Kko">
+            <objects>
+                <viewController id="vJh-wj-Q3I" customClass="GameVC" customModule="WinkGame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B9B-Yd-rjD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You Are a:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iw8-qN-3vM">
+                                <rect key="frame" x="20" y="183" width="374" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1A3-LB-S3M">
+                                <rect key="frame" x="20" y="212" width="374" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wke-gC-9ae">
+                                <rect key="frame" x="0.0" y="367" width="414" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhM-kJ-Xz1">
+                                <rect key="frame" x="183" y="556" width="49" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="submitButton:" destination="vJh-wj-Q3I" eventType="touchUpInside" id="bNo-Ku-VKE"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Winker is:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSa-mI-k3S">
+                                <rect key="frame" x="49" y="338" width="75" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Room Number:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UI2-Pw-XPd">
+                                <rect key="frame" x="20" y="79" width="374" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Room Name:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVR-Y4-dbs">
+                                <rect key="frame" x="20" y="108" width="374" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="xK9-ES-JIS"/>
+                    </view>
+                    <connections>
+                        <outlet property="nameLabel" destination="Iw8-qN-3vM" id="STL-aL-fvj"/>
+                        <outlet property="playerPicker" destination="Wke-gC-9ae" id="K65-T6-gMX"/>
+                        <outlet property="serverNameLabel" destination="gVR-Y4-dbs" id="28x-Xl-9TA"/>
+                        <outlet property="serverNumberLabel" destination="UI2-Pw-XPd" id="zmF-Me-tts"/>
+                        <outlet property="type" destination="1A3-LB-S3M" id="svv-ju-eeJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="asc-a5-JTn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3644.9275362318845" y="-104.34782608695653"/>
         </scene>
         <!--Join Game-->
         <scene sceneID="0aV-Js-gmE">
@@ -218,6 +290,7 @@
                         <outlet property="playerNickname" destination="WrV-O7-50w" id="c7n-N9-TRt"/>
                         <outlet property="playersJoined" destination="GSy-st-3Uo" id="5fZ-nH-f7j"/>
                         <outlet property="serverNumber" destination="L1Q-T9-7mJ" id="Ygj-NL-2le"/>
+                        <segue destination="vJh-wj-Q3I" kind="show" identifier="startFromJoin" id="oMn-AZ-FpN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uQZ-FA-xTy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -225,4 +298,7 @@
             <point key="canvasLocation" x="2762.3188405797105" y="628.53260869565224"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="WkD-WY-brZ"/>
+    </inferredMetricsTieBreakers>
 </document>

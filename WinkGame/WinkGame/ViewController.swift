@@ -24,6 +24,7 @@ class ViewController: UIViewController {
             vc.serverNum = server
             ref.child("servers").childByAutoId().setValue(server)
             ref.child("servers/\(server)/numPlayers").setValue(1)
+            ref.child("servers/\(server)/gameInProgress").setValue(false)
             
         }
     }
