@@ -35,6 +35,7 @@ class GameCreated: UIViewController {
             } else {
                 let dict = (snap.value as! NSDictionary) as! [String: String]
                 var names = ""
+                self.playerNames = []
                 for (_, value) in dict{
                     self.playerNames.append(value)
                     names += String(value) + "\n"

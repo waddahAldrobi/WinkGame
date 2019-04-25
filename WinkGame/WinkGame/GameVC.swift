@@ -24,6 +24,7 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var serverNum = 0
     var playerNames = [String]()
     var namesDict = [String: String]()
+    var namesAssigned = [String:Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,7 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
                 // Child not found
             } else {
                 let dict = (snap.value as! NSDictionary) as! [String: Int]
+                self.namesAssigned = dict
                 var strType = ""
                 
                 switch dict[self.name] {
@@ -126,11 +128,39 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
             // Return a string from the array for this row.
             return playerNames[row]
         }
-        
+    
+    var isCorrectPrediction = false
     
     
     @IBAction func submitButton(_ sender: Any) {
         print("Winker is:", playerNames[playerPicker.selectedRow(inComponent: 0)])
+        isCorrectPrediction = namesAssigned[playerNames[playerPicker.selectedRow(inComponent: 0)]] == 2
+        self.alert(isCorrect: isCorrectPrediction)
+    }
+    
+    func alert (isCorrect: Bool) {
+        // Create the alert controller
+        let title = isCorrect ? "Correct" : "Wrong"
+        let alertController = UIAlertController(title: title , message: "You've submitted", preferredStyle: .alert)
+        
+        // Create the actions
+        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+            UIAlertAction in
+            print("OK Pressed")
+            
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) {
+            UIAlertAction in
+            print("Cancel Pressed")
+        }
+        
+        // Add the actions
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the controller
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     
     /*
