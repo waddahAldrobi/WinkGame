@@ -107,6 +107,7 @@ class GameCreated: UIViewController {
             let vc = segue.destination as! GameVC
             vc.serverNum = serverNum
             vc.name = playerNickName.text!
+            vc.isCreator = true
         }
     }
  

@@ -25,6 +25,7 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var playerNames = [String]()
     var namesDict = [String: String]()
     var namesAssigned = [String:Int]()
+    var isCreator = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,7 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         self.playerPicker.dataSource = self
         
         serverNumberLabel.text = "Server Number: " + String(serverNum)
-        serverNumberLabel.text = name + ", you are a: "
+        nameLabel.text = name + ", you are a: "
         
         
         // Server Name
@@ -43,7 +44,8 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
                 // Child not found
             } else {
                 DispatchQueue.main.async {
-                    self.serverNameLabel.text = snap.value as? String ?? "<Name>"
+                    let serverName = snap.value as? String ?? "<Name>"
+                    self.serverNameLabel.text = "The " + serverName + " Group"
                 }
             }
         }) { (error) in
@@ -135,42 +137,53 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBAction func submitButton(_ sender: Any) {
         print("Winker is:", playerNames[playerPicker.selectedRow(inComponent: 0)])
         isCorrectPrediction = namesAssigned[playerNames[playerPicker.selectedRow(inComponent: 0)]] == 2
-        self.alert(isCorrect: isCorrectPrediction)
+        self.alert()
     }
     
-    func alert (isCorrect: Bool) {
-        // Create the alert controller
-        let title = isCorrect ? "Correct" : "Wrong"
-        let alertController = UIAlertController(title: title , message: "You've submitted", preferredStyle: .alert)
-        
-        // Create the actions
-        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-            UIAlertAction in
-            print("OK Pressed")
-            
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel) {
-            UIAlertAction in
-            print("Cancel Pressed")
-        }
-        
-        // Add the actions
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        
-        // Present the controller
-        self.present(alertController, animated: true, completion: nil)
-        
-    }
+
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "submitted"{
+            let vc = segue.destination as! SubmittedVC
+            vc.namesAssigned = namesAssigned
+            vc.isCorrect = isCorrectPrediction
+            vc.isCreator = isCreator
+        }
     }
-    */
+    
+    
+    func alert () {
+        // Create the alert controller
+        let title = "Are you sure that " + playerNames[playerPicker.selectedRow(inComponent: 0)] + " is the winker?"
+        let alertController = UIAlertController(title: title , message: "", preferredStyle: .alert)
+        
+        // Create the actions
+        let yesAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.cancel) {
+            UIAlertAction in
+            self.performSegue(withIdentifier: "submitted", sender: nil)
+            
+        }
+        
+        let noAction = UIAlertAction(title: "No", style: UIAlertAction.Style.default) {
+            UIAlertAction in
+        }
+        
+        
+        
+        
+        // Add the actions
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        
+        
+        // Present the controller
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
 
 }

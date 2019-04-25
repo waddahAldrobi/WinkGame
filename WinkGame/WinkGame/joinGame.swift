@@ -13,6 +13,7 @@ class joinGame: UIViewController {
     @IBOutlet weak var serverNum: UITextField!
     @IBOutlet weak var playerName: UITextField!
     var playerNames = [String]()
+    var firstJoin = false
     
     var ref = Database.database().reference()
     
@@ -36,10 +37,10 @@ class joinGame: UIViewController {
             }
             
             else{
-                self.ref.child("servers/\(self.serverNum.text!)/players").childByAutoId().setValue(self.playerName.text)
+                if !self.firstJoin { self.ref.child("servers/\(self.serverNum.text!)/players").childByAutoId().setValue(self.playerName.text) }
                 self.ref.child("servers/\(self.serverNum.text!)/numPlayers").observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as! Int
-                    self.ref.child("servers/\(self.serverNum.text!)/numPlayers").setValue(value+1)
+                let value = snapshot.value as! Int
+                self.ref.child("servers/\(self.serverNum.text!)/numPlayers").setValue(value+1)
                     
                 })
                 
@@ -69,11 +70,14 @@ class joinGame: UIViewController {
         
         ref2.observeSingleEvent(of: .value, with: { snapshot in
             
-            if !snapshot.exists() { return }
-            
-            let dict = (snapshot.value as! NSDictionary) as! [String: String]
-            for (_, value) in dict{
-                self.playerNames.append(value)
+            if !snapshot.exists() { self.ref.child("servers/\(self.serverNum.text!)/players").childByAutoId().setValue(self.playerName.text)
+                self.firstJoin = true
+            }
+            else {
+                let dict = (snapshot.value as! NSDictionary) as! [String: String]
+                for (_, value) in dict{
+                    self.playerNames.append(value)
+                }
             }
             
             completion()

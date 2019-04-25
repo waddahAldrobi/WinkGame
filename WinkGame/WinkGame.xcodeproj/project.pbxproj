@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D417657D227045960051A642 /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D417657C227045960051A642 /* GameVC.swift */; };
+		D465E90922714CF100178A2E /* SubmittedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D465E90822714CF100178A2E /* SubmittedVC.swift */; };
 		D4F5936A226EA60C00EE6172 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F59369226EA60C00EE6172 /* AppDelegate.swift */; };
 		D4F5936C226EA60C00EE6172 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F5936B226EA60C00EE6172 /* ViewController.swift */; };
 		D4F5936F226EA60C00EE6172 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4F5936D226EA60C00EE6172 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		7C4D58A017955D65263857C4 /* Pods-WinkGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WinkGame.release.xcconfig"; path = "Target Support Files/Pods-WinkGame/Pods-WinkGame.release.xcconfig"; sourceTree = "<group>"; };
 		D417657C227045960051A642 /* GameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVC.swift; sourceTree = "<group>"; };
+		D465E90822714CF100178A2E /* SubmittedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedVC.swift; sourceTree = "<group>"; };
 		D4F59366226EA60C00EE6172 /* WinkGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WinkGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F59369226EA60C00EE6172 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4F5936B226EA60C00EE6172 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				D4F5937F226EC66500EE6172 /* joinGame.swift */,
 				D4F59381226ED96200EE6172 /* waitVC.swift */,
 				D417657C227045960051A642 /* GameVC.swift */,
+				D465E90822714CF100178A2E /* SubmittedVC.swift */,
 				D4F59370226EA60E00EE6172 /* Assets.xcassets */,
 				D4F59372226EA60E00EE6172 /* LaunchScreen.storyboard */,
 				D4F59375226EA60E00EE6172 /* Info.plist */,
@@ -239,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4F5936C226EA60C00EE6172 /* ViewController.swift in Sources */,
+				D465E90922714CF100178A2E /* SubmittedVC.swift in Sources */,
 				D4F5936A226EA60C00EE6172 /* AppDelegate.swift in Sources */,
 				D4F59382226ED96200EE6172 /* waitVC.swift in Sources */,
 				D4F5937E226EAB0300EE6172 /* GameCreated.swift in Sources */,
