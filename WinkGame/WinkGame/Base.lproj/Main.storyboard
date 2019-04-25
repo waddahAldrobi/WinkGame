@@ -211,7 +211,6 @@
                                 <state key="normal" title="Join"/>
                                 <connections>
                                     <action selector="joinServer:" destination="Jq6-qW-dd0" eventType="touchUpInside" id="pyk-YI-zov"/>
-                                    <segue destination="j6l-vE-xcj" kind="show" identifier="waitStart" id="3bJ-Ex-Akt"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -221,6 +220,7 @@
                     <connections>
                         <outlet property="playerName" destination="cm4-w0-xrX" id="rl9-i5-U84"/>
                         <outlet property="serverNum" destination="LcS-gN-BmU" id="QzL-hL-wbq"/>
+                        <segue destination="j6l-vE-xcj" kind="show" identifier="waitStart" id="3Sj-fa-NZK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g7j-FU-HMD" userLabel="First Responder" sceneMemberID="firstResponder"/>

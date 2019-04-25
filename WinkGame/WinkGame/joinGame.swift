@@ -12,6 +12,9 @@ import FirebaseDatabase
 class joinGame: UIViewController {
     @IBOutlet weak var serverNum: UITextField!
     @IBOutlet weak var playerName: UITextField!
+    var playerNames = [String]()
+    
+    var ref = Database.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +27,24 @@ class joinGame: UIViewController {
     // If user hits back must exit and -1 num
     // Join Sends You to page where you wait and see users come in
     @IBAction func joinServer(_ sender: Any) {
-        let ref = Database.database().reference()
-        ref.child("servers/\(serverNum.text!)/players").childByAutoId().setValue(playerName.text)
-        ref.child("servers/\(serverNum.text!)/numPlayers").observeSingleEvent(of: .value, with: { (snapshot) in
-            let value = snapshot.value as! Int
-            ref.child("servers/\(self.serverNum.text!)/numPlayers").setValue(value+1)
+        
+        // Names of players who have joined
+        getNamesFromDatabase(completion:{
+            print("playernames", self.playerNames)
+            if self.playerNames.contains(self.playerName.text!){
+                self.alert()
+            }
+            
+            else{
+                self.ref.child("servers/\(self.serverNum.text!)/players").childByAutoId().setValue(self.playerName.text)
+                self.ref.child("servers/\(self.serverNum.text!)/numPlayers").observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as! Int
+                    self.ref.child("servers/\(self.serverNum.text!)/numPlayers").setValue(value+1)
+                    
+                })
+                
+                self.performSegue(withIdentifier: "waitStart", sender: nil)
+            }
             
         })
     }
@@ -45,6 +61,43 @@ class joinGame: UIViewController {
             vc.nickname = playerName.text!
             
         }
+    }
+    
+    func getNamesFromDatabase(completion: @escaping ()->Void){
+        
+        let ref2 = Database.database().reference(withPath: "servers/\(serverNum.text!)/players")
+        
+        ref2.observeSingleEvent(of: .value, with: { snapshot in
+            
+            if !snapshot.exists() { return }
+            
+            let dict = (snapshot.value as! NSDictionary) as! [String: String]
+            for (_, value) in dict{
+                self.playerNames.append(value)
+            }
+            
+            completion()
+            
+        })
+    }
+    
+    func alert () {
+        // Create the alert controller
+        let title = "Nickname Alreay in Use"
+        let alertController = UIAlertController(title: title , message: "Please use a different nickname", preferredStyle: .alert)
+        
+        // Create the actions
+        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+            UIAlertAction in
+            print("OK Pressed")
+            
+        }
+        // Add the actions
+        alertController.addAction(okAction)
+        
+        // Present the controller
+        self.present(alertController, animated: true, completion: nil)
+        
     }
  
 
