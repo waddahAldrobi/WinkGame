@@ -82,7 +82,7 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        playerNames = []
         getValueFromDatabase(completion:{
             
             print("Done", self.playerNames)
@@ -150,9 +150,11 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         // Pass the selected object to the new view controller.
         if segue.identifier == "submitted"{
             let vc = segue.destination as! SubmittedVC
-            vc.namesAssigned = namesAssigned
+//            vc.namesAssigned = namesAssigned
             vc.isCorrect = isCorrectPrediction
             vc.isCreator = isCreator
+            vc.serverNum = serverNum
+            vc.playerName = name
         }
     }
     

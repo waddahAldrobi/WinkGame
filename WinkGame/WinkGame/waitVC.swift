@@ -9,8 +9,6 @@
 import UIKit
 import FirebaseDatabase
 
-// Must add exit or cancel with -1
-
 class waitVC: UIViewController {
     @IBOutlet weak var serverNumber: UILabel!
     @IBOutlet weak var playerNickname: UILabel!

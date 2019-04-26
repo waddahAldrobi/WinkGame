@@ -23,17 +23,18 @@ class joinGame: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    // Must do name checking
     // Must do Alert for wrong server
-    // If user hits back must exit and -1 num
-    // Join Sends You to page where you wait and see users come in
     @IBAction func joinServer(_ sender: Any) {
         
         // Names of players who have joined
         getNamesFromDatabase(completion:{
-            print("playernames", self.playerNames)
-            if self.playerNames.contains(self.playerName.text!){
-                self.alert()
+            print("playernames", self.playerName.text!.count == 0)
+            
+            if self.playerName.text!.count == 0{
+                self.alert(emtpy: true)
+            }
+            else if self.playerNames.contains(self.playerName.text!){
+                 self.alert(emtpy: false)
             }
             
             else{
@@ -85,9 +86,12 @@ class joinGame: UIViewController {
         })
     }
     
-    func alert () {
+    func alert (emtpy: Bool) {
         // Create the alert controller
-        let title = "Nickname Alreay in Use"
+        var title = ""
+        if emtpy { title = "Nickname can't be empty" }
+        else { title = "Nickname Alreay in Use" }
+        
         let alertController = UIAlertController(title: title , message: "Please use a different nickname", preferredStyle: .alert)
         
         // Create the actions

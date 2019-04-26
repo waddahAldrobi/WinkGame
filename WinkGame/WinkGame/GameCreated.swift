@@ -20,7 +20,8 @@ class GameCreated: UIViewController {
     var joinedNum = 1
     var playerNames = [String]()
     // Back exits the game
-    //Should cancel other players out too
+    // Should cancel other players out too
+    // Do same name checking
     override func viewDidLoad() {
         super.viewDidLoad()
         codeLabel.text = String(serverNum)
