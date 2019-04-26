@@ -32,6 +32,7 @@ class GameCreated: UIViewController {
         ref.child("servers/\(serverNum)/players").observe(.value, with: { snap in
             if snap.value is NSNull {
                 // Child not found
+                self.namesJoined.text = ""
             } else {
                 let dict = (snap.value as! NSDictionary) as! [String: String]
                 var names = ""
