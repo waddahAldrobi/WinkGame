@@ -167,6 +167,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgf-9D-DJk">
+                                <rect key="frame" x="20" y="594" width="374" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">You have submitted.
+Please wait for the rest of the players to submit</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="xK9-ES-JIS"/>
@@ -176,6 +185,7 @@
                         <outlet property="playerPicker" destination="Wke-gC-9ae" id="K65-T6-gMX"/>
                         <outlet property="serverNameLabel" destination="gVR-Y4-dbs" id="28x-Xl-9TA"/>
                         <outlet property="serverNumberLabel" destination="UI2-Pw-XPd" id="zmF-Me-tts"/>
+                        <outlet property="submissionConfirmation" destination="hgf-9D-DJk" id="ZjN-YD-MfX"/>
                         <outlet property="type" destination="1A3-LB-S3M" id="svv-ju-eeJ"/>
                         <segue destination="ZzJ-Oy-1Ve" kind="show" identifier="submitted" id="Zrd-ds-CH0"/>
                     </connections>

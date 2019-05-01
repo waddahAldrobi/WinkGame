@@ -93,6 +93,7 @@ class GameCreated: UIViewController {
         ref.child("servers/\(serverNum)/players").childByAutoId().setValue(playerNickName.text)
         ref.child("servers/\(serverNum)/playersTypes").setValue(assignedTypes)
         ref.child("servers/\(serverNum)/gameInProgress").setValue(true)
+        ref.child("servers/\(serverNum)/numSubmitted").setValue(0)
         
         
     }

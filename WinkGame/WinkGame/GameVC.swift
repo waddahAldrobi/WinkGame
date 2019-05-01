@@ -18,6 +18,8 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet weak var serverNumberLabel: UILabel!
     @IBOutlet weak var serverNameLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var submissionConfirmation: UILabel!
+    
     
     var ref = Database.database().reference()
     var name = ""
@@ -36,6 +38,8 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         
         serverNumberLabel.text = "Server Number: " + String(serverNum)
         nameLabel.text = name + ", you are a: "
+        
+        submissionConfirmation.isHidden = true
         
         
         // Server Name
@@ -167,6 +171,14 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         // Create the actions
         let yesAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.cancel) {
             UIAlertAction in
+            self.submissionConfirmation.isHidden = false
+            // Number of Players label
+            self.ref.child("servers/\(self.serverNum)/numSubmitted").observeSingleEvent(of: .value, with: { (snapshot) in
+                print("Snap Value: ", snapshot.value as? Int ?? 0 )
+                let value = snapshot.value as? Int ?? 0 + 1
+                print("Snap: ", value)
+                
+            })
             self.performSegue(withIdentifier: "submitted", sender: nil)
             
         }
