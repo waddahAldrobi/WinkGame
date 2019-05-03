@@ -68,34 +68,44 @@ class GameCreated: UIViewController {
     }
     
     @IBAction func createGame(_ sender: Any) {
-        playerNames.append(playerNickName.text ?? "Creator" )
         
-        var types = [Int]()
-        var assignedTypes = [String : Int]()
-        // 0 is normal, 1 is Cop, 2 is Winker
-        if joinedNum >= 2 {
-            types.append(1)
-            types.append(2)
-            for _ in 0 ..< joinedNum-2{
-                types.append(0)
+        
+        if self.playerNickName.text!.count == 0{
+            self.alert(emtpy: true)
+        }
+        else if self.playerNames.contains(self.playerNickName.text!){
+            self.alert(emtpy: false)
+        }
+        else{
+            playerNames.append(playerNickName.text ?? "Creator" )
+            
+            var types = [Int]()
+            var assignedTypes = [String : Int]()
+            // 0 is normal, 1 is Cop, 2 is Winker
+            if joinedNum >= 2 {
+                types.append(1)
+                types.append(2)
+                for _ in 0 ..< joinedNum-2{
+                    types.append(0)
+                }
             }
+            // Shuffles and assigns
+            types = types.shuffled()
+            
+            for (index, element) in playerNames.enumerated() {
+                assignedTypes[element] = types[index]
+            }
+            
+            print("assi:", assignedTypes)
+            
+            
+            let ref = Database.database().reference()
+            ref.child("servers/\(serverNum)/serverName").setValue(serverName.text)
+            ref.child("servers/\(serverNum)/players").childByAutoId().setValue(playerNickName.text)
+            ref.child("servers/\(serverNum)/playersTypes").setValue(assignedTypes)
+            ref.child("servers/\(serverNum)/gameInProgress").setValue(true)
+            ref.child("servers/\(serverNum)/numSubmitted").setValue(0)
         }
-        // Shuffles and assigns
-        types = types.shuffled()
-        
-        for (index, element) in playerNames.enumerated() {
-            assignedTypes[element] = types[index]
-        }
-        
-        print("assi:", assignedTypes)
-        
-        
-        let ref = Database.database().reference()
-        ref.child("servers/\(serverNum)/serverName").setValue(serverName.text)
-        ref.child("servers/\(serverNum)/players").childByAutoId().setValue(playerNickName.text)
-        ref.child("servers/\(serverNum)/playersTypes").setValue(assignedTypes)
-        ref.child("servers/\(serverNum)/gameInProgress").setValue(true)
-        ref.child("servers/\(serverNum)/numSubmitted").setValue(0)
         
         
     }
@@ -114,6 +124,29 @@ class GameCreated: UIViewController {
             vc.name = playerNickName.text!
             vc.isCreator = true
         }
+    }
+    
+    
+    func alert (emtpy: Bool) {
+        // Create the alert controller
+        var title = ""
+        if emtpy { title = "Nickname can't be empty" }
+        else { title = "Nickname Alreay in Use" }
+        
+        let alertController = UIAlertController(title: title , message: "Please use a different nickname", preferredStyle: .alert)
+        
+        // Create the actions
+        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+            UIAlertAction in
+            print("OK Pressed")
+            
+        }
+        // Add the actions
+        alertController.addAction(okAction)
+        
+        // Present the controller
+        self.present(alertController, animated: true, completion: nil)
+        
     }
  
 

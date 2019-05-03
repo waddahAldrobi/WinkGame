@@ -28,8 +28,6 @@ class joinGame: UIViewController {
         
         // Names of players who have joined
         getNamesFromDatabase(completion:{
-            print("playernames", self.playerName.text!.count == 0)
-            
             if self.playerName.text!.count == 0{
                 self.alert(emtpy: true)
             }
