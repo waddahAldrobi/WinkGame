@@ -22,7 +22,7 @@ class ViewController: UIViewController {
             let server = self.generateRandomNumber(numDigits: 5)
             let vc = segue.destination as! GameCreated
             vc.serverNum = server
-            ref.child("servers").childByAutoId().setValue(server)
+//            ref.child("servers").childByAutoId().setValue(server)
             ref.child("servers/\(server)/numPlayers").setValue(1)
             ref.child("servers/\(server)/gameInProgress").setValue(false)
             

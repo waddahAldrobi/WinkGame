@@ -29,12 +29,15 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var namesAssigned = [String:Int]()
     var isCreator = false
     
+    @IBOutlet weak var submitButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.playerPicker.delegate = self
         self.playerPicker.dataSource = self
+        submitButton.isHidden = false
         
         serverNumberLabel.text = "Server Number: " + String(serverNum)
         nameLabel.text = name + ", you are a: "
@@ -55,6 +58,24 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         }) { (error) in
             print(error.localizedDescription)
         }
+        
+        // Number of submissions
+        ref.child("servers/\(serverNum)/numSubmitted").observe(.value, with: { snap in
+            if snap.value is NSNull {
+                // Child not found
+            } else if self.playerNames.count > 0{
+                let value = snap.value as? Int ?? 0
+                print("value:", value)
+                print("players:", self.playerNames.count)
+                if value == self.playerNames.count {
+                    self.performSegue(withIdentifier: "submitted", sender: nil)
+                }
+
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
 
         
         // Player Types
@@ -97,9 +118,7 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     func getValueFromDatabase(completion: @escaping ()->Void){
         
-        ref = Database.database().reference(withPath: "servers/\(serverNum)/players")
-        
-        ref.observeSingleEvent(of: .value, with: { snapshot in
+        ref.child("servers/\(serverNum)/players").observeSingleEvent(of: .value, with: { snapshot in
             
             if !snapshot.exists() { return }
             
@@ -139,8 +158,8 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     @IBAction func submitButton(_ sender: Any) {
-        print("Winker is:", playerNames[playerPicker.selectedRow(inComponent: 0)])
         isCorrectPrediction = namesAssigned[playerNames[playerPicker.selectedRow(inComponent: 0)]] == 2
+        submitButton.isHidden = true
         self.alert()
     }
     
@@ -174,12 +193,10 @@ class GameVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
             self.submissionConfirmation.isHidden = false
             // Number of Players label
             self.ref.child("servers/\(self.serverNum)/numSubmitted").observeSingleEvent(of: .value, with: { (snapshot) in
-                print("Snap Value: ", snapshot.value as? Int ?? 0 )
-                let value = snapshot.value as? Int ?? 0 + 1
-                print("Snap: ", value)
+                let value = (snapshot.value as? Int ?? 0) + 1
+                self.ref.child("servers/\(self.serverNum)/numSubmitted").setValue(value)
                 
             })
-            self.performSegue(withIdentifier: "submitted", sender: nil)
             
         }
         

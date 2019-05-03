@@ -37,15 +37,17 @@ class waitVC: UIViewController {
             if snap.value is NSNull {
                 // Child not found
             } else {
-                let dict = (snap.value as! NSDictionary) as! [String: String]
-                self.playerNames.removeAll()
-                var names = ""
-                for (key, value) in dict{
-                    names += String(value) + "\n"
-                    self.playerNames[value] = key
-                }
-                DispatchQueue.main.async {
-                    self.playersJoined.text = names
+                let dict = (snap.value as! NSDictionary) as? [String: String]
+                if dict != nil {
+                    self.playerNames.removeAll()
+                    var names = ""
+                    for (key, value) in dict!{
+                        names += String(value) + "\n"
+                        self.playerNames[value] = key
+                    }
+                    DispatchQueue.main.async {
+                        self.playersJoined.text = names
+                    }
                 }
             }
         }) { (error) in

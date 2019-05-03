@@ -44,13 +44,13 @@ class SubmittedVC: UIViewController {
         
         
         // Create the actions
-        let endAction = UIAlertAction(title: "End", style: UIAlertAction.Style.default) {
+        let endAction = UIAlertAction(title: "End", style: UIAlertAction.Style.cancel) {
             UIAlertAction in
             print("End Pressed")
             
         }
         if isCreator {
-            let playAgainAction = UIAlertAction(title: "Another Round", style: UIAlertAction.Style.cancel) {
+            let playAgainAction = UIAlertAction(title: "Another Round", style: UIAlertAction.Style.default) {
                 UIAlertAction in
                 print("Play Again Pressed")
                 
@@ -61,10 +61,11 @@ class SubmittedVC: UIViewController {
 
             
             alertController.addAction(playAgainAction)
+            alertController.addAction(endAction) 
         }
         
         else {
-            let playAgainAction = UIAlertAction(title: "Play Again", style: UIAlertAction.Style.cancel) {
+            let playAgainAction = UIAlertAction(title: "Play Again", style: UIAlertAction.Style.default) {
                 UIAlertAction in
                 print("Play pressed")
                 
@@ -74,11 +75,12 @@ class SubmittedVC: UIViewController {
             }
             
             alertController.addAction(playAgainAction)
+            alertController.addAction(endAction)
         }
         
         // Add the actions
         
-        alertController.addAction(endAction)
+        
         
         // Present the controller
         self.present(alertController, animated: true, completion: nil)

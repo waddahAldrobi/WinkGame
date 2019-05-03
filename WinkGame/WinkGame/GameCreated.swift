@@ -35,15 +35,17 @@ class GameCreated: UIViewController {
                 // Child not found
                 self.namesJoined.text = ""
             } else {
-                let dict = (snap.value as! NSDictionary) as! [String: String]
-                var names = ""
-                self.playerNames = []
-                for (_, value) in dict{
-                    self.playerNames.append(value)
-                    names += String(value) + "\n"
-                }
-                DispatchQueue.main.async {
-                    self.namesJoined.text = names
+                let dict = (snap.value as! NSDictionary) as? [String: String]
+                if dict != nil {
+                    var names = ""
+                    self.playerNames = []
+                    for (_, value) in dict!{
+                        self.playerNames.append(value)
+                        names += String(value) + "\n"
+                    }
+                    DispatchQueue.main.async {
+                        self.namesJoined.text = names
+                    }
                 }
             }
         }) { (error) in
