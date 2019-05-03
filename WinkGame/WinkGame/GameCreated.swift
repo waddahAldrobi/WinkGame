@@ -21,11 +21,13 @@ class GameCreated: UIViewController {
     var playerNames = [String]()
     // Back exits the game
     // Should cancel other players out too
-    // Do same name checking
     override func viewDidLoad() {
         super.viewDidLoad()
         codeLabel.text = String(serverNum)
         numJoined.text = String(joinedNum)
+        
+        self.navigationItem.hidesBackButton = true
+        
         
         let ref = Database.database().reference()
         
@@ -65,6 +67,12 @@ class GameCreated: UIViewController {
         }) { (error) in
             print(error.localizedDescription)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.hidesBackButton = true
+        let exitButton = UIBarButtonItem(title: "Exit", style: UIBarButtonItem.Style.plain, target: self, action: #selector(exitButtonTapped(_:)))
+        self.navigationItem.leftBarButtonItem = exitButton
     }
     
     @IBAction func createGame(_ sender: Any) {
@@ -147,6 +155,13 @@ class GameCreated: UIViewController {
         // Present the controller
         self.present(alertController, animated: true, completion: nil)
         
+    }
+    
+    @objc func exitButtonTapped(_ sender: UIBarButtonItem)
+    {
+        let ref = Database.database().reference()
+        ref.child("servers/\(self.serverNum)").removeValue()
+        self.navigationController?.popViewController(animated: true)
     }
  
 

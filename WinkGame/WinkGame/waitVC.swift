@@ -25,10 +25,6 @@ class waitVC: UIViewController {
         serverNumber.text = String(serverNum)
         playerNickname.text = nickname
         
-        self.navigationController?.navigationItem.hidesBackButton = true
-        let exitButton = UIBarButtonItem(title: "Exit", style: UIBarButtonItem.Style.done, target: nil, action: nil)
-        self.navigationController?.navigationItem.leftBarButtonItem = exitButton
-        
         let ref = Database.database().reference()
         
         
